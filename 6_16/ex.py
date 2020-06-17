@@ -3,6 +3,8 @@ import os
 import urllib.request
 import pickle
 import zipfile
+from PIL import Image
+
 
 
 def solve():
@@ -34,13 +36,12 @@ def test():
             
 
 
-def peakHell():            
-    url = "http://www.pythonchallenge.com/pc/def/banner.p"
+def readUrl(extension):            
+    url = f"http://www.pythonchallenge.com/pc/def/{extension}"
     response = urllib.request.urlopen(url)
     content = response.read()
-    content = pickle.loads(content)
-    for line in content:
-        output(line)
+    content = content.decode('utf-8')
+    return content
 
 def output(text):
     cur = ""
@@ -68,5 +69,17 @@ def zipping():
 def matched(text):
     return p.findall(text)
 
+
+
+def img():
+    name = 'test.png'
+    url = "http://www.pythonchallenge.com/pc/def/oxygen.png"
+    urllib.request.urlretrieve(url, name)
+    im = Image.open('test.png')
+    print(im.show())
+    
+    
 if __name__=="__main__":
-    zipping()
+#    content = readUrl('oxygen.html')
+#    print(content)
+    img()
