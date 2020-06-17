@@ -1,10 +1,9 @@
 import re
+import os
 import urllib.request
 import pickle
+import zipfile
 
-p = re.compile("[^A-Z][A-Z]{3}([a-z]){1}[A-Z]{3}[^A-Z]")
-def matched(text):
-    return p.findall(text)
 
 def solve():
     count = 0
@@ -49,5 +48,25 @@ def output(text):
         cur += item[1] * item[0]
     print(cur)
 
+def zipping():
+    p = re.compile("Next nothing is (\d+)")
+    f = zipfile.ZipFile('./channel.zip')
+    num = '90052'
+    comments = []
+    while True:
+        comment = f.getinfo(num + '.txt').comment
+        comments.append(comment.decode('utf-8'))
+        next_file = f.read(num + '.txt')
+        match = p.match(next_file.decode('utf-8'))
+        if not match:
+            break
+        num = match.group(1)
+    print("".join(comments))
+        
+    
+                
+def matched(text):
+    return p.findall(text)
+
 if __name__=="__main__":
-    peakHell()
+    zipping()
