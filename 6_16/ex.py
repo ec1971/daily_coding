@@ -6,7 +6,6 @@ import zipfile
 from PIL import Image
 
 
-
 def solve():
     count = 0
     with open('content.txt') as f:
