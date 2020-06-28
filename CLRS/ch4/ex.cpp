@@ -3,28 +3,62 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-
-string longestCommonPrefix(vector<string>& strs) {
-    if(strs.size()==0) return "";
-    string res = "";
-    int len = strs[0].size();
-    for(int i = 0; i < len; i++){
-        char cur = strs[0][i];
-        for(auto &s: strs){
-            if(i==s.size() || s[i] != cur){
-                return res;
-            }
+/*
+maximum subarray problem
+*/
+//bruteforce
+//take 1: wrong anwser (corrected)
+int maxSubArray(vector<int>& nums) {
+    if(nums.size()==0) return 0;
+    int maxSum = nums[0];
+    //for each subarray starting at index i...
+    for(int i = 0; i < nums.size(); i++){
+        int curSum = 0;
+        //this is where the mistake occurred: skipped the max count when i==j
+        for(int j = i; j < nums.size(); j++){
+            curSum += nums[j];
+            maxSum = max(maxSum, curSum);
         }
-        res += cur;
-
     }
-    return res;
+    return maxSum;
 
-        
-        
         
 }
+//divide and conquer approach
+int divide(vector<int>&nums, int i, int j){
+    if(i == j) return nums[i];
+    int mid = (j + i) / 2;
+    int maxLeft = divide(nums, i, mid);
+    int maxRight = divide(nums, mid + 1, j);
+    int maxCur = max(maxLeft, maxRight);
+    return max(maxCur, findCrossingMax(nums, i, mid, j));
+
+}
+//assuming valid indexs
+int findCrossingMax(vector<int>&nums, int left, int mid, int right){
+    //can't have default values as 0!!
+    int maxLeft = nums[mid];
+    int curLeft = 0;
+    int maxRight = nums[mid + 1];
+    int curRight = 0;
+    for(int i = mid; i >= left; i--){
+        curLeft += nums[i];
+        maxLeft = max(maxLeft, curLeft);
+    }
+    for(int j = mid + 1; j <= right; j++){
+        curRight += nums[j];
+        maxRight = max(maxRight, curRight);
+    }
+    return maxLeft + maxRight;
+}
     
+int maxSubArray(vector<int>& nums) {
+    if(nums.size() == 0) return 0;
+
+    int i = 0, j = nums.size() - 1;
+    return divide(nums, i, j);
+}
+
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
 
