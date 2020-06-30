@@ -59,6 +59,18 @@ int maxSubArray(vector<int>& nums) {
     return divide(nums, i, j);
 }
 
+//approach3: kadane's
+int maxSubArray(vector<int>& nums) {
+    int maxSum = nums[0];
+    int maxSumEndsAt = 0;
+    //for each index, calculate the max subarray ending at index i
+    for(int i = 0; i < nums.size(); i++){
+        maxSumEndsAt = max(0, maxSumEndsAt) + nums[i];
+        maxSum = max(maxSumEndsAt, maxSum);
+    }
+    return maxSum; 
+}
+
 int main() {
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
 

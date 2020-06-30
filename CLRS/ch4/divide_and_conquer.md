@@ -18,7 +18,7 @@
       - and https://leetcode.com/problems/maximum-subarray/discuss/20360/C%2B%2B-An-clear-O(n)-divide-and-conquer-solution-with-comments
       - power of preprocessing?
 - (4-5) linear time method w/o divide and conquer
-    - kadane's algorithm
+    - kadane's algorithm (also the algorithm mentioned in CLRS)
     - dp with prefix sums
      
 ## CLRS exercise
@@ -71,4 +71,46 @@ int maxSubArray(vector<int>& nums) {
 - (2) return the empty array if it is, otherwise proceed as usual
 
 4.1-5
+
+4.2-1
+- calcuated until c11 - gets 18. 
+
+4.2-2
+- similar to the divide and conquer just replace the combine step?
+
+4.2-3
+- pad the matrixis with 0's to make it power of 2
+
+(with return to the rest of the problems after reading section 4.5)
+
+# Solving recurrences
+## master theorem
+- T(n) = aT(n/b) + f(n); 
+    - 'a': number of subproblems
+    - 'b': portion of which to divide work
+    - f(n): time to create/divide/combine sub problems
+
+- three cases : look at f(n) and compare it with n<sup>logb<sup>a - e</sup></sup>; 
+    - potential answer: n<sup>logb<sup>a</sup></sup>logn, n<sup>logb<sup>a</sup></sup>, f(n);
+- **case 1** (Work to split/recombine a problem comparable to subproblems):
+    - if f(n) = n<sup>logb<sup>a</sup></sup> : **T(n) = n<sup>logb<sup>a</sup></sup>logn**
+    - e.g. mergesort-> T(n) = 2T(n/2) + O(n)
+    - n<sup>logb<sup>a</sup></sup> = n<sup>log2<sup>2</sup></sup> = n -> T(n) = nlogn
+    - e.g. binary search->T(n) = T(n/2) + O(1)
+    - n<sup>logb<sup>a</sup></sup> = n<sup>log2<sup>1</sup></sup> = 1; T(n) = 1 * logn
+    
+- **case 2** (Work to split/recombine a problem dwarfed by subproblems):
+    - if f(n) = O(n<sup>logb<sup>a - e</sup></sup>): **T(n) = n<sup>logb<sup>a</sup></sup>**
+            
+- **case 3** (Work to split/recombine a problem dominates subproblems):
+    - if f(n) = omega(n<sup>logb<sup>a + e</sup></sup>): **T(n) = f(n)**
+    - e.g. partition search(see below)
+    - e.g. binary tree traversal 
+
+## common recursions and their run time
+  - T(n) = 2T(n/2) + O(n): O(nlogn); //e.g. merge sort
+  - T(n) = 2T(n/2) + O(1): O(n);
+  - T(n) = T(n/2) + O(n): O(n)--> partition serch;
+
+
 
