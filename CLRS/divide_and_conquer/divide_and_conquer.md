@@ -8,6 +8,7 @@
 ## transforming the input: subarray problem
 - some initial thoughts
     - why transforming the problems from looking for 'max difference' to maximime subarrays? is it because the divide and couquer method only works for the latter?
+    - (turned out the above hypothesis wasn't true -- in algorithm design book they didn't transform the input and got a similar divide and conquer method)
 - (1) brute-forc after transformation
     - count the sum of each subarray and compare
     - n^2 subarray and each takes O(1)

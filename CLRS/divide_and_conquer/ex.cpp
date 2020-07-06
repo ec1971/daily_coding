@@ -70,10 +70,16 @@ int maxSubArray(vector<int>& nums) {
     }
     return maxSum; 
 }
+//this is incorrect
+// [2, 0, 1]
 bool isIdealPermutation(vector<int>& A) {
     for(int i = 1; i < A.size(); i++){
         if(A[i] < A[i - 1]){
             swap(A[i], A[i - 1]);
+            if(i + 1 < A.size() && A[i + 1] < A[i]){
+                return false;
+
+            }
         }
     }
     for(int i = 1; i < A.size(); i++){
