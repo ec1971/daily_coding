@@ -1,0 +1,12 @@
+;iter
+(define (fast-iter res a b)
+    (define (even? x)
+            (= (remainder x 2) 0))
+    (define (double x)
+            (+ x x))
+    (define (halve x)
+            (/ x 2))
+    (cond ((= b 0) res)
+          ((even? b) (fast-iter res (double a) (halve b)))
+          (else (fast-iter (+ res a) a (- b 1))))) 
+(fast-iter 0 1.7 3)
