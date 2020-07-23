@@ -17,4 +17,11 @@
     (product-iter identity 1 inc n))
     ;(product identity 1 inc n))
 
-(factorial 5)
+(define (pi n)
+    (define (inc x) (+ x 1))
+    (define (term x) 
+        (/(* (* 2.0 x)
+             (* 2.0 (inc x)))
+          (square (+ 1 (* 2 x)))))
+    (* 4 (product term 1 inc n)))
+(pi 100)
