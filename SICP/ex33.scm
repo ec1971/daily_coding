@@ -22,3 +22,16 @@
     (define (identity x) x)
     (accumulate-filter + 0 identity a inc b prime?))
 (prime-sum 3 8)
+
+(define (relative-prime-product n)
+    (define (gcd a b)
+        (cond ((= b 0) a)
+              ((< a b)(gcd b a))
+              (else (gcd b (remainder a b)))))
+    (define (relative-primes? x)
+        (= 1 (gcd x n)))
+    (define (inc x) (+ x 1))
+    (define (identity x) x)
+    (accumulate-filter * 1 identity 1 inc n relative-primes?))
+
+(relative-prime-product 10)
