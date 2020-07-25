@@ -44,3 +44,5 @@
 )
 
 (fix-point cos 1.0)
+;golden ratio
+(fix-point (lambda (x)(+ 1 (/ 1 x))) 1.0)
