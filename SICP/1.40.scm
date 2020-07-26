@@ -1,0 +1,37 @@
+;helpers
+
+(define (fix-point f first-guess)
+    (define tolerance 0.00001)
+    (define (close-enough? cur next)
+        (< (abs (- cur next)) tolerance))
+    (define (find-next x)
+        (let ((next (f x)))
+            (if (close-enough? x next)
+                next
+                (find-next next)))
+        )
+    (find-next first-guess)
+)
+(define (average-damp f)
+    (define (average a b)(/ (+ a b) 2))
+    (lambda (x)(average x (f x))))
+
+;newton's method
+(define (newtons-method g guess)
+    (define (newton-transform g)
+        (define (deriv f)
+            (define dx 0.00001)
+            (lambda (x)
+                (/ (- (f (+ x dx))(f x))
+                dx)))
+        (lambda (x)
+            (- x (/ (g x) ((deriv g) x)))))
+    (fix-point (average-damp (newton-transform g)) guess))
+
+(define (cubic a b c)
+    (lambda (x)
+        ( + (* x x x)
+            (* a x x)
+            (* b x)
+            c)))
+(newtons-method (cubic 2 5 5) 1)
