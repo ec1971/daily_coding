@@ -27,3 +27,16 @@
    (cond ((= n 0) identity) 
          ((even? n) (repeated (compose f f) (/ n 2))) 
          (else (compose f (repeated f (- n 1)))))) 
+
+(define (fix-point f first-guess)
+    (define tolerance 0.00001)
+    (define (close-enough? cur next)
+        (< (abs (- cur next)) tolerance))
+    (define (find-next x)
+        (let ((next (f x)))
+            (if (close-enough? x next)
+                next
+                (find-next next)))
+        )
+    (find-next first-guess)
+)
