@@ -19,7 +19,11 @@
 (define (even? x) (= (remainder x 2) 0))
 (define (cube x) (* x x x))
 (define (inc x) (+ x 1))
+(define (identity x) x)
 (define (compose f g)
     (lambda (x)
         (f (g x))))
-
+(define (repeated f n) 
+   (cond ((= n 0) identity) 
+         ((even? n) (repeated (compose f f) (/ n 2))) 
+         (else (compose f (repeated f (- n 1)))))) 
