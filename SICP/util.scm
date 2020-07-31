@@ -40,3 +40,7 @@
         )
     (find-next first-guess)
 )
+(define (gcd a b)
+    (cond ((= b 0) a)
+        ((< a b)(gcd b a))
+            (else (gcd b (remainder a b)))))
