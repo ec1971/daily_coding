@@ -1,0 +1,13 @@
+(load "util")
+
+(define cons identity)
+(define (num-of-factors x factor)
+    (cond ((> (remainder x factor) 0) 0)
+          (else (+ 1 (num-of-factors (/ x factor) factor)))))
+(define (car num)
+    (num-of-factors num 2))
+(define (cdr num)
+    (num-of-factors num 3))
+(num-of-factors 4 2)
+(car (cons 324))
+(cdr (cons 324))
