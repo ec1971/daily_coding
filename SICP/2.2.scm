@@ -21,6 +21,7 @@
 (define (y-point p)(cdr p))
 
 ; takes in segment and return midpoint
+; can use let to simplify the mid point calculation
 (define (midpoint-segment seg)
     (define (mid-pos x y)
         (/ (+ x y) 2))
@@ -29,6 +30,18 @@
                  (car (end-segment seg)))
         (mid-pos (cdr (start-segment seg))
                  (cdr (end-segment seg)))))
+
+; use let 
+(define (midpoint-segment seg)
+    (define (mid-pos x y)
+        (/ (+ x y) 2))
+    (let ((start-seg (start-segment seg))
+          (end-seg (end-segment seg)))
+        (make-point 
+            (mid-pos (car start-seg)
+                     (car end-seg))
+            (mid-pos (cdr start-seg)
+                     (cdr end-seg)))))
 
 (print-point 
     (midpoint-segment 
