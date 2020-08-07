@@ -11,8 +11,8 @@
             nums
             (append (car nums)(check tgt (cdr nums)))))
     (if (null? remaining)
-        first
+        list first
         (display "ok")))
-        (check target numbers))
+        (check target numbers)
 
 (same-parity 1)
